@@ -56,13 +56,10 @@ operatorButtons.forEach(button => {
         const operator = button.alt;
         const userAnswer = evaluateExpression(num1, num2, operator);
         if (userAnswer === correctAnswer) {
-            updateScore(1);
-            randomizeNumbers(); 
-        } else {
-            decreaseScore(1); 
-            randomizeNumbers(); 
-        }
-        updateScoreDisplay(); 
+            updateScore(1); 
+        } 
+        randomizeNumbers();
+        updateScoreDisplay();
     });
 });
 function updateScore(amount) {
@@ -96,10 +93,13 @@ function evaluateExpression(num1, num2, operator) {
 }
 
 // Iteration 7: Making Timer functional
-function startTimer() {
-    let timeLeft = 60; 
+let timerInterval; 
 
-    const timerInterval = setInterval(() => {
+function startTimer() {
+    clearInterval(timerInterval); 
+    let timeLeft = 60;
+
+    timerInterval = setInterval(() => {
         timeLeft--;
         timerElement.textContent = `${timeLeft} `;
 
@@ -107,7 +107,8 @@ function startTimer() {
             clearInterval(timerInterval);
             endGame();
         } else if (timeLeft % 20 === 0) {
-            randomizeNumbers(); 
+            randomizeNumbers();
+            updateScoreDisplay();
         }
     }, 1000);
 }
